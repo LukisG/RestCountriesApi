@@ -6,6 +6,8 @@ const Filterbyregion = () => {
     const {regionname} = useParams()
     // const [serverresponse, setServerresponse] = useState ()
     // const [region, setRegion] = useState("")
+    const [loading, setLoading] = useState(true);
+    const [input, setInput] = useState('');
     useEffect(()=> {
         const fethcountrydata = async() => {
 
@@ -13,6 +15,10 @@ const Filterbyregion = () => {
             const country = await response.json()
             setCountry(country)
             // setServerresponse(response)
+
+
+            await new Promise((r) => setTimeout(r, 2000));
+            setLoading((loading) => !loading);
         }
         fethcountrydata()
         //console.log(regionname)
@@ -20,23 +26,40 @@ const Filterbyregion = () => {
     }, [])
     //console.log(country)
     //console.log(serverresponse)
-    if (country.status === 404){
+    if (loading){
         return (
-            <>
-            <Link to="/" className='btn'>Back to All</Link>
-            <h1 className='error'>Not Found Error code: {country.status}</h1>
-            </>
-        )
+        <div id="load">
+        <div>G</div>
+        <div>N</div>
+        <div>I</div>
+        <div>D</div>
+        <div>A</div>
+        <div>O</div>
+        <div>L</div>
+      </div>
+      )
     }else{
     return (
         <>
         {/* <Filter /> */}
         
         <Link to="/" className='btn'>Back to All</Link>
+        <section className='filter'>
+        <form className="form-controll">
+        <input type="search" name="search" id="search" placeholder='Search for a country' onInput={e => setInput(e.target.value)}/>
+                
+        </form>
+        </section>
         <h1 className='currentregion'>{regionname}</h1>
         <section className="grid">
             
-        {country ? country.map((country, index)=> {
+        {country.filter(country =>{
+            if (input === ""){
+                return country;
+            }else if (country.name.common.toLowerCase().includes(input.toLowerCase())){
+                return country;
+            }
+        }).map((country, index)=> {
             const { name, flags } = country
             
             return(
@@ -54,7 +77,7 @@ const Filterbyregion = () => {
                     </div>
                 </article>
             )
-        }): 'no data'}
+        })}
         </section>
         
         </>
