@@ -36,15 +36,15 @@ const Country = () => {
         <Link to={"/"} className='btn backbtn'>Back</Link>
         
         <section>
-        {country.filter((country) =>{
-            if (name == ""){
+        {country.filter(country =>{
+            if (name === ""){
                 return country;
             }else if (country.name.common.toLowerCase()===(name.toLowerCase())){
                 //console.log(country.name.common.toLowerCase().includes(name.toLowerCase()))
                 return country;
             }
         }).map((c, index) => {
-                const {name, population, area, flags, currencies, langueges, borders} = c
+                const {name, population, area, flags} = c
 
                 return(
                     <article key={index} >

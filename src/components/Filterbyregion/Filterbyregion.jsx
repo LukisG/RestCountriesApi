@@ -4,15 +4,15 @@ const Filterbyregion = () => {
     
     const [country, setCountry] = useState([])
     const {regionname} = useParams()
-    const [serverresponse, setServerresponse] = useState ()
-    const [region, setRegion] = useState("")
+    // const [serverresponse, setServerresponse] = useState ()
+    // const [region, setRegion] = useState("")
     useEffect(()=> {
         const fethcountrydata = async() => {
 
             const response = await fetch(`https://restcountries.com/v3.1/region/${regionname}`)
             const country = await response.json()
             setCountry(country)
-            setServerresponse(response)
+            // setServerresponse(response)
         }
         fethcountrydata()
         //console.log(regionname)
@@ -37,7 +37,7 @@ const Filterbyregion = () => {
         <section className="grid">
             
         {country ? country.map((country, index)=> {
-            const { name, flags, id } = country
+            const { name, flags } = country
             
             return(
                 <article key={index}>

@@ -51,8 +51,8 @@ const Countries = () => {
         </form>
         </section>
         <section className="grid">
-        {countries.filter((country) =>{
-            if (input == ""){
+        {countries.filter(country =>{
+            if (input === ""){
                 return country;
             }else if (country.name.common.toLowerCase().includes(input.toLowerCase())){
                 return country;
